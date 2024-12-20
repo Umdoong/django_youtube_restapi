@@ -23,14 +23,18 @@ EXPOSE 8000
 # ARGUMENTS, 개발 버전이냐 배포 버전이냐
 ARG DEV=false
 
-# Alpine Linux 명령어로 패키지 설치
+# Alpine Linux 명령어로 패키지 설치(&& == \n, \ == 이어져있음)
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     /py/bin/pip install -r /tmp/requirements.txt && \
+    apk add --update --no-cache postgresql-client jpeg-dev && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+        build-base postgresql-dev musl-dev zlib zlib-dev linux-headers && \
     if [ $DEV = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
     rm -rf /tmp && \
+    apk del .tmp-build-deps && \
     adduser \
         --disabled-password \
         --no-create-home \

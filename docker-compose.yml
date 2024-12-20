@@ -1,4 +1,4 @@
-version: "3.8" # DockerComposeAPI의 version
+#version: "3.3" # DockerComposeAPI의 version
 
 services: # 컨테이너
   app: # Django

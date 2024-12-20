@@ -14,10 +14,10 @@ jobs:
 #        image: docker:19.03.12 # Docker 데몬을 실행하기 위한 이미지
 #        options: --privileged  # Docker를 실행할 수 있는 권한 부여
     steps: # 작업 단계
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'
+#      - name: Set up Python
+#        uses: actions/setup-python@v2
+#        with:
+#          python-version: '3.8'
 
       - name: Login in to Docker Hub # Docker Hub에서 Image륿 불러는 역할
         uses: docker/login-action@v1 # github actions에서 제공하는 모듈
@@ -29,6 +29,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
+          docker-compose --version
 
       - name: Check out - Pull repository code # Github에 있는 코드를 작업 환경으로 가져오는 역할
         uses: actions/checkout@v2

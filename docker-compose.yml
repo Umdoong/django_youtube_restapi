@@ -1,4 +1,4 @@
-version: "3.3" # DockerComposeAPI의 version
+version: "3.8" # DockerComposeAPI의 version
 
 services: # 컨테이너
   app: # Django
@@ -17,3 +17,20 @@ services: # 컨테이너
     # docker-compose run --rm app sh -c 'django-admin startproject app .'으로 임시 컨테이너에서 프로젝트 시작 후 종료
     # --rm은 컨테이너가 종료됨과 동시에 삭제되는 옵션
     # 이후 docker-compose up으로 서버를 실행하는 컨테이너 생성 up이기 때문에 삭제 전까지 계속 존재함
+
+    environment: # django한테 db 정보를 알려줘야함
+      - DB_HOST=db
+      - DB_NAME=youtube
+      - DB_USER=umdoong
+      - DB_PASS=password123
+    depends_on: # 어디에 의존할 거냐, db가 준비가 성공적으로 끝나면 app을 실행하겠다는 의미
+      - db
+
+  db: # PostgreSQL
+    image: postgresql:16-alpine
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRE_DB=youtube
+      - POSTGRE_USER=umdoong
+      - POSTGRE_PASSWORD=password123

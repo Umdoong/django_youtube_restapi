@@ -49,7 +49,11 @@ Docker를 사용할 때는 이미지, 컨테이너, 네트워크, 볼륨, 플러
 
 ## PostgreSQL의 장점
 1) 수직적 확장성이 뛰어나다.
-2) NoSQL 기능을 강력하게 지원하는 몇 안되는 RDBMS이다.
+2) NoSQL 및 다양한 데이터 형식(JSON, hstore, XML 등)을 강력하게 지원하는 몇 안되는 ORDBMS이다.
 3) 오픈소스이기 때문에 무료로 사용이 가능하여 비용을 절감시킬 수 있다.
 4) 오픈소스 커뮤니티가 있기 때문에 최신 기술 정보와 문제점의 해결책을 공유하고 있어서 빠르고 유연한 개발이 가능하다.
-5)  
+5) 대용량 데이터 관리에 적합하다.
+
+## MySQL과 PostgreSQL의 차이점
+![image](https://github.com/user-attachments/assets/7a8b72c7-90ce-4dac-9108-40abb5963329)
+

@@ -13,6 +13,10 @@ jobs:
       docker:
         image: docker:19.03.12 # Docker 데몬을 실행하기 위한 이미지
         options: --privileged  # Docker를 실행할 수 있는 권한 부여
+        ports:
+          - 2375:2375  # Docker Daemon에 접근할 수 있도록 포트 매핑
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock  # Docker Daemon에 접근할 수 있도록 소켓 공유
     steps: # 작업 단계
 #      - name: Set up Python
 #        uses: actions/setup-python@v2

@@ -10,6 +10,11 @@ jobs:
     name: Test and Lint
     runs-on: ubuntu-20.04 # 어디서 돌릴 거야?(작업환경)
     steps: # 작업 단계
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
       - name: Login in to Docker Hub # Docker Hub에서 Image륿 불러는 역할
         uses: docker/login-action@v1 # github actions에서 제공하는 모듈
         with:

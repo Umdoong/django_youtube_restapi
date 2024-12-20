@@ -9,21 +9,13 @@ jobs:
   test-lint: # 테스트를 돌린 건데 flake8을 돌릴 거야
     name: Test and Lint
     runs-on: ubuntu-20.04 # 어디서 돌릴 거야?(작업환경)
-    services:
-      docker:
-        image: docker:19.03.12 # Docker 데몬을 실행하기 위한 이미지
-        options: --privileged  # Docker를 실행할 수 있는 권한 부여
-        ports:
-          - 2375:2375  # Docker Daemon에 접근할 수 있도록 포트 매핑
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock  # Docker Daemon에 접근할 수 있도록 소켓 공유
     steps: # 작업 단계
-#      - name: Set up Python
-#        uses: actions/setup-python@v2
-#        with:
-#          python-version: '3.8'
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+        with:
+          version: 'latest'
 
-      - name: Login in to Docker Hub # Docker Hub에서 Image륿 불러는 역할
+      - name: Login in to Docker Hub # Docker Hub에서 Image를 불러오는 역할
         uses: docker/login-action@v1 # github actions에서 제공하는 모듈
         with:
           username: ${{ secrets.DOCKERHUB_USER }}

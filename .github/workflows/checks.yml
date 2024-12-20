@@ -1,0 +1,26 @@
+# Github Actions CI(incheck, 코드 문제 없는지)/CD(deploy)
+---
+# Workflow 이름
+name: Checks
+# git push 이벤트 활성화 -> 레포지토리에 push를 했을 때 활성화
+on: [push]
+# 어떤 역할을 할 거냐
+jobs:
+  test-lint: # 테스트를 돌린 건데 flake8을 돌릴 거야
+    name: Test and Lint
+    runs-on: ubuntu-20.04 # 어디서 돌릴 거야?(작업환경)
+    steps: # 작업 단계
+      - name: Login in to Docker Hub # Docker Hub에서 Image륿 불러는 역할
+        uses: docker/login-action@v1 # github actions에서 제공하는 모듈
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Check out - Pull repository code # Github에 있는 코드를 작업 환경으로 가져오는 역할
+        uses: actions/checkout@v2
+
+      - name: Run Test-Code # 이미지와 코드로 테스트
+        run: docker-compose run --rm app sh -c 'python manage.py test'
+
+      - name: Run Flake8 Linting # 린팅작업 - pep8 style guide를 잘 준수하고 있는지 체크
+        run: docker-compose run --rm app sh -c 'flake8'

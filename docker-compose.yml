@@ -27,7 +27,7 @@ services: # 컨테이너
       - db
 
   db: # PostgreSQL
-    image: postgresql:16-alpine
+    image: postgres:16-alpine
     volumes:
       - ./data/db:/var/lib/postgresql/data
     environment:

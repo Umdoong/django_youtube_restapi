@@ -56,4 +56,3 @@ Docker를 사용할 때는 이미지, 컨테이너, 네트워크, 볼륨, 플러
 
 ## MySQL과 PostgreSQL의 차이점
 ![image](https://github.com/user-attachments/assets/7a8b72c7-90ce-4dac-9108-40abb5963329)
-

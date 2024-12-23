@@ -56,3 +56,46 @@ Docker를 사용할 때는 이미지, 컨테이너, 네트워크, 볼륨, 플러
 
 ## MySQL과 PostgreSQL의 차이점
 ![image](https://github.com/user-attachments/assets/7a8b72c7-90ce-4dac-9108-40abb5963329)
+
+
+
+## Youtube Model 구조 구상해보기 => ORM
+
+(1) User => users
+- email
+- password
+- nickname
+- is_business
+
+(2) Video => videos
+- title
+- description
+- link
+- views_count
+- thumbnail
+- video_file: link
+- User: FK
+
+ex) 파일(이미지, 동영상)
+=> 장고에 저장하면 장고에 부하가 걸림
+=> S3 Bucket(저럼, 속도가 빠름) -> 결과물을 링크로 받아서 db에 저장
+
+(3) Reaction (Video에 대한 리액션) => reactions
+- User: FK
+- Video: FK
+- reaction(like, dislike, cancel) => 실제 youtube rest api
+
+(4) Comment => comments
+- User: FK
+- Video: FK
+- content
+- like
+- dislike
+
+(5) Subscription => subscriptions
+- User: FK => subscriber(내가 구독한 사람)
+- User: FK => subscribed_to(나를 구독한 사람)
+
+(6) Common => common
+- created_at
+- updated_at

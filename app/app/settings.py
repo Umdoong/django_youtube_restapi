@@ -39,8 +39,14 @@ DEFAULT_APPS = [
 ]
 
 CUSTOM_APPS = [
-    'core',
+    'core.apps.CoreConfig',
     'users.apps.UsersConfig',
+    'comments.apps.CommentsConfig',
+    'reactions.apps.ReactionsConfig',
+    'subscriptions.apps.SubscriptionsConfig',
+    'videos.apps.VideosConfig',
+    'rest_framework',
+    'drf_spectacular',
 ]
 
 
@@ -134,3 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # custom user model
 AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}

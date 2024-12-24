@@ -73,6 +73,7 @@ Docker를 사용할 때는 이미지, 컨테이너, 네트워크, 볼륨, 플러
 - link
 - views_count
 - thumbnail
+- category
 - video_file: link
 - User: FK
 
@@ -99,3 +100,7 @@ ex) 파일(이미지, 동영상)
 (6) Common => common
 - created_at
 - updated_at
+
+모델을 먼저 정의하는 이유
+- 순서
+- DB migration(테이블 구조 정의) => REST API

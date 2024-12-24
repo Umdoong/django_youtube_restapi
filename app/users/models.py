@@ -3,6 +3,12 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
+"""
+- email
+- password
+- nickname
+- is_business
+"""
 
 class UserManager(BaseUserManager):
 	# 일반 유저 생성 함수

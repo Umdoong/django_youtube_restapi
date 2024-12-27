@@ -104,3 +104,33 @@ ex) 파일(이미지, 동영상)
 모델을 먼저 정의하는 이유
 - 순서
 - DB migration(테이블 구조 정의) => REST API
+
+
+
+## AWS EC2로 배포해본 과정
+(1) EC2 인스턴스 및 키페어 생성
+(2) EC2 들어가서 git, docker, docker-compose 설치
+(3) ec2-user에게 ```sudo usermod -aG docker ec2-user```로 도커 권한을 부여해줌
+### How?
+#### 리눅스에서 그룹의 역할
+리눅스 사용자는 하나의 주 그룹(Primary Group)과 여러 개의 2차 그룹(Secondary Groups)에 속할 수 있다.
+- 주 그룹: 사용자가 파일을 생성할 때 기본적으로 파일에 할당되는 그룹.
+- 2차 그룹: 사용자가 추가 권한을 가지기 위해 속할 수 있는 그룹들.
+- 예를 들어, ec2-user가 현재 docker 그룹에 속하지 않다면, Docker 관련 명령어를 실행할 때마다 sudo를 붙여야 합니다
+- 이 사용자를 docker 그룹의 구성원으로 추가하면 sudo 없이도 Docker를 사용할 수 있게 됩니다.
+
+#### 각 명령어 의미
+- usermod: 사용자 계정을 수정하는 명령어
+- a (append): 기존의 2차 그룹을 유지하면서 새로운 그룹을 추가합니다.
+- G (groups): 사용자를 지정한 그룹들로 2차 그룹 구성원으로 설정합니다.
+- 여기서 만약 -a를 생략하면, ec2-user가 기존에 속한 다른 2차 그룹 정보가 사라지고 docker 그룹만 2차 그룹으로 설정됩니다.
+
+(4) ```sudo chmod +x /usr/local/bin/docker-compose```로 도커 컴포즈도 실행 권한을 부여한다
+- chmod: 파일이나 디렉토리의 권한을 변경(change mode)
+- +x: 실행 권한을 추가
+- 뒤의 경로는 docker-compose 바이너리 파일의 위치
+
+(5) git clone으로 개발해놨던 코드들을 가져옴  
+(6) cd로 clone해온 디렉토리로 이동  
+(7) sudo docker-compose -f docker-compose-deploy.yml build으로 빌드  
+(8) sudo docker-compose -f docker-compose-deploy.yml up으로 배포
